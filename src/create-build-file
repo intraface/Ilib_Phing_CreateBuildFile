@@ -1,0 +1,271 @@
+#!/usr/bin/php
+<?php
+
+set_include_path(realpath(dirname(__FILE__)).PATH_SEPARATOR.get_include_path());
+
+require_once 'Ilib/Phing/BuildFile/Create.php';
+$createbuildfile = new Ilib_Phing_BuildFile_Create();
+
+fwrite(STDOUT,"Create Phing Build File to ilib packages\n");
+fwrite(STDOUT,"http://public.intraface.dk\n\n");
+
+fwrite(STDOUT,"Preparing to create build file...\n");
+
+if(file_exists('build.xml')) {
+    fwrite(STDOUT,"Found build.xml file. Reading xml...\n");
+    
+    $createbuildfile->readValuesFromBuildFile('build.xml');
+}
+
+// name
+fwrite(STDOUT,"PACKAGE NAME\n");
+if(!empty($createbuildfile->package_name)) {
+    fwrite(STDOUT,'Found: '. $createbuildfile->package_name."\n");
+    fwrite(STDOUT,"Enter or leave empty to use existing: ");
+}
+else {
+    fwrite(STDOUT,'Enter: ');
+}
+$package_name = trim(fgets(STDIN));
+
+
+// version
+fwrite(STDOUT,"PACKAGE VERSION (X.X.X)\n");
+if(!empty($createbuildfile->package_version)) {
+    fwrite(STDOUT,'Found: '. $createbuildfile->package_version."\n");
+    fwrite(STDOUT,"Enter or leave empty to use existing: ");
+}
+else {
+    fwrite(STDOUT,'Enter: ');
+}
+$package_version = trim(fgets(STDIN));
+
+// stability
+fwrite(STDOUT,"PACKAGE STABILITY (alpha, beta, stable)\n");
+if(!empty($createbuildfile->package_stability)) {
+    fwrite(STDOUT,'Found: '. $createbuildfile->package_stability."\n");
+    fwrite(STDOUT,"Enter or leave empty to use existing: ");
+}
+else {
+    fwrite(STDOUT,'Enter: ');
+}
+$package_stability = trim(fgets(STDIN));
+
+// Summary
+fwrite(STDOUT,"PACKAGE SUMMARY\n");
+if(!empty($createbuildfile->package_summary)) {
+    fwrite(STDOUT,'Found: '. $createbuildfile->package_summary."\n");
+    fwrite(STDOUT,"Enter or leave empty to use existing: ");
+}
+else {
+    fwrite(STDOUT,'Enter: ');
+}
+$package_summary = trim(fgets(STDIN));
+
+// description
+fwrite(STDOUT,"PACKAGE DESCRIPTION\n");
+if(!empty($createbuildfile->package_description)) {
+    fwrite(STDOUT,'Found: '. $createbuildfile->package_description."\n");
+    fwrite(STDOUT,"Enter or leave empty to use existing: ");
+}
+else {
+    fwrite(STDOUT,'Enter: ');
+}
+$package_description = trim(fgets(STDIN));
+
+// release notes
+fwrite(STDOUT,"RELEASE_NOTES\n");
+if(!empty($createbuildfile->release_notes)) {
+    fwrite(STDOUT,'Found: '. $createbuildfile->release_notes."\n");
+    fwrite(STDOUT,"Enter or leave empty to use existing: ");
+}
+else {
+    fwrite(STDOUT,'Enter: ');
+}
+$release_notes = trim(fgets(STDIN));
+
+if(!empty($package_name)) $createbuildfile->package_name = $package_name;
+if(!empty($package_version)) $createbuildfile->package_version = $package_version;
+if(!empty($package_stability)) $createbuildfile->package_stability = $package_stability;
+if(!empty($package_summary)) $createbuildfile->package_summary = $package_summary;
+if(!empty($package_description)) $createbuildfile->package_description = $package_description;
+if(!empty($release_notes)) $createbuildfile->release_notes = $release_notes;
+
+$dependencies = $createbuildfile->getDependencies();
+$createbuildfile->clearDependencies();
+
+$i = 0;
+while(true) {
+    fwrite(STDOUT,'DEPENDENCY '.($i+1)."\n");
+    
+    fwrite(STDOUT,"NAME\n");
+    if(!empty($dependencies[$i]) && !empty($dependencies[$i]['name'])) {
+        fwrite(STDOUT,'Found: '. $dependencies[$i]['name']."\n");
+        fwrite(STDOUT,"Enter name or leave empty to use existing or enter '/delete' to remove: ");
+    }
+    else {
+        fwrite(STDOUT,'Enter or leave empty if no more dependencies: ');
+    }
+    $dependency_name = trim(fgets(STDIN));
+    
+    // if edditing existing dependency an leaving it empty it should be replaced by the existing.
+    if(!empty($dependencies[$i]) && !empty($dependencies[$i]['name']) && empty($dependency_name)) {
+        $dependency_name = $dependencies[$i]['name'];
+    }
+    
+    if(!empty($dependency_name) && $dependency_name != "/delete") {
+        
+        fwrite(STDOUT,"CHANNEL\n");
+        if(!empty($dependencies[$i]) && !empty($dependencies[$i]['channel'])) {
+            fwrite(STDOUT,'Found: '. $dependencies[$i]['channel']."\n");
+            fwrite(STDOUT,"Enter or leave empty to use existing: ");
+        }
+        else {
+            fwrite(STDOUT,'Enter: ');
+        }
+        $dependency_channel = trim(fgets(STDIN));
+        
+        if(!empty($dependencies[$i]) && !empty($dependencies[$i]['channel']) && empty($dependency_channel)) {
+            $dependency_channel = $dependencies[$i]['channel'];
+        }
+    
+    
+        fwrite(STDOUT,"MINIMUM VERSION (X.X.X)\n");
+        if(!empty($dependencies[$i]) && !empty($dependencies[$i]['minimum_version'])) {
+            fwrite(STDOUT,'Found: '. $dependencies[$i]['minimum_version']."\n");
+            fwrite(STDOUT,"Enter or leave empty to use existing: ");
+        }
+        else {
+            fwrite(STDOUT,'Enter: ');
+        }
+        $dependency_minimum_version = trim(fgets(STDIN));
+        if(!empty($dependencies[$i]) && !empty($dependencies[$i]['minimum_version']) && empty($dependency_minimum_version)) {
+            $dependency_minimum_version = $dependencies[$i]['minimum_version'];
+        }
+    
+        fwrite(STDOUT,"RECOMMENDED VERSION (X.X.X)\n");
+        if(!empty($dependencies[$i]) && !empty($dependencies[$i]['recommended_version'])) {
+            fwrite(STDOUT,'Found: '. $dependencies[$i]['recommended_version']."\n");
+            fwrite(STDOUT,"Enter or leave empty to use existing: ");
+        }
+        else {
+            fwrite(STDOUT,'Enter: ');
+        }
+        $dependency_recommended_version = trim(fgets(STDIN));
+        if(!empty($dependencies[$i]) && !empty($dependencies[$i]['recommended_version']) && empty($dependency_recommended_version)) {
+            $dependency_recommended_version = $dependencies[$i]['recommended_version'];
+        }
+    
+        $createbuildfile->addDependency($dependency_name,  $dependency_channel, $dependency_minimum_version, $dependency_recommended_version);
+    }
+    else {
+        // only if there is no more existing dependencies we exit.
+        if(empty($dependencies[($i+1)])) {
+            break;
+        }
+    }
+    $i++;
+}
+
+
+$createbuildfile->clearTests();
+
+if(is_dir('tests')) {
+    
+    $test_dir = 'tests';
+    $count_tests = 0;
+    
+    fwrite(STDOUT,"Scanning test dir for tests... (need to end with *Test.php)\n");
+    foreach (scandir($test_dir) as $test) {
+        if (!strcmp(substr($test, 0, 1), '.' )) {
+            continue;
+        }
+        
+        if(is_file($test_dir.DIRECTORY_SEPARATOR.$test) && substr($test, strlen($test) - 8) == 'Test.php') {
+            $createbuildfile->addTest(substr($test, 0, strlen($test) - 4));
+            $count_tests++;
+        }
+    }
+    
+    if($count_tests == 0) {
+        fwrite(STDOUT,"Found no tests\n");
+    }
+    else {
+       fwrite(STDOUT,"Found ".$i." test(s)\n"); 
+    }
+}
+
+file_put_contents('build.xml', $createbuildfile->create());
+fwrite(STDOUT, "build.xml file has been written\n\n");
+
+
+/**
+ * Properties file.
+ */
+fwrite(STDOUT,"Preparing to create properties file...\n");
+
+require_once 'Ilib/Phing/BuildFile/CreateProperties.php';
+$properties = new Ilib_Phing_BuildFile_CreateProperties();
+
+if(file_exists('build.properties')) {
+    fwrite(STDOUT,"Found build.properties file. Reading file...\n");
+    
+    $properties->readValuesFromBuildFile('build.properties');
+}
+
+// pear username
+fwrite(STDOUT,"PEAR CHANNEL USERNAME\n");
+if(!empty($properties->pear_channel_username)) {
+    fwrite(STDOUT,'Found: '. $properties->pear_channel_username."\n");
+    fwrite(STDOUT,"Enter or leave empty to use existing: ");
+}
+else {
+    fwrite(STDOUT,'Enter: ');
+}
+$pear_channel_username = trim(fgets(STDIN));
+
+// pear password
+fwrite(STDOUT,"PEAR CHANNEL PASSWORD\n");
+if(!empty($properties->pear_channel_password)) {
+    fwrite(STDOUT,'Found: '. $properties->pear_channel_password."\n");
+    fwrite(STDOUT,"Enter or leave empty to use existing: ");
+}
+else {
+    fwrite(STDOUT,'Enter: ');
+}
+$pear_channel_password = trim(fgets(STDIN));
+
+
+// ftp user
+fwrite(STDOUT,"FTP USER\n");
+if(!empty($properties->ftp_user)) {
+    fwrite(STDOUT,'Found: '. $properties->ftp_user."\n");
+    fwrite(STDOUT,"Enter or leave empty to use existing: ");
+}
+else {
+    fwrite(STDOUT,'Enter: ');
+}
+$ftp_user = trim(fgets(STDIN));
+
+// ftp password
+fwrite(STDOUT,"FTP PASSWORD\n");
+if(!empty($properties->ftp_password)) {
+    fwrite(STDOUT,'Found: '. $properties->ftp_password."\n");
+    fwrite(STDOUT,"Enter or leave empty to use existing: ");
+}
+else {
+    fwrite(STDOUT,'Enter: ');
+}
+$ftp_password = trim(fgets(STDIN));
+
+if(!empty($pear_channel_username)) $properties->pear_channel_username = $pear_channel_username;
+if(!empty($pear_channel_password)) $properties->pear_channel_password = $pear_channel_password;
+if(!empty($ftp_user)) $properties->ftp_user = $ftp_user;
+if(!empty($ftp_password)) $properties->ftp_password = $ftp_password;
+
+file_put_contents('build.properties', $properties->create());
+fwrite(STDOUT, "build.properties file has been written\n\n");
+
+
+fwrite(STDOUT, "Enjoy your day.\n");
+?>

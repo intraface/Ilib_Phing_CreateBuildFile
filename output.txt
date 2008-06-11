@@ -1,0 +1,1699 @@
+Array
+(
+    [0] => Array
+        (
+            [tag] => PROJECT
+            [type] => open
+            [level] => 1
+            [attributes] => Array
+                (
+                    [NAME] => TestPackage
+                    [BASEDIR] => .
+                    [DEFAULT] => build
+                )
+
+            [value] => 
+
+        )
+
+    [1] => Array
+        (
+            [tag] => TASKDEF
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [CLASSNAME] => phing.tasks.ext.d51PearPkg2Task
+                    [NAME] => d51pearpkg2
+                )
+
+        )
+
+    [2] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [3] => Array
+        (
+            [tag] => TASKDEF
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [CLASSNAME] => phing.tasks.ext.IlibPearDeployerTask
+                    [NAME] => peardeploy
+                )
+
+        )
+
+    [4] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [5] => Array
+        (
+            [tag] => TASKDEF
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [CLASSNAME] => phing.tasks.ext.FtpDeployTask
+                    [NAME] => ftpdeploy
+                )
+
+        )
+
+    [6] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [7] => Array
+        (
+            [tag] => PROPERTY
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => package-name
+                    [VALUE] => ${phing.project.name}
+                )
+
+        )
+
+    [8] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [9] => Array
+        (
+            [tag] => PROPERTY
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => version
+                    [VALUE] => 0.0.2
+                )
+
+        )
+
+    [10] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [11] => Array
+        (
+            [tag] => PROPERTY
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => stability
+                    [VALUE] => alpha
+                )
+
+        )
+
+    [12] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [13] => Array
+        (
+            [tag] => PROPERTY
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => pear.channel
+                    [VALUE] => public.intraface.dk
+                )
+
+        )
+
+    [14] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [15] => Array
+        (
+            [tag] => PROPERTY
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => source.dir
+                    [VALUE] => .
+                )
+
+        )
+
+    [16] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [17] => Array
+        (
+            [tag] => PROPERTY
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => tests.dir
+                    [VALUE] => ./tests
+                )
+
+        )
+
+    [18] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [19] => Array
+        (
+            [tag] => PROPERTY
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => build.dir
+                    [VALUE] => ../build
+                )
+
+        )
+
+    [20] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [21] => Array
+        (
+            [tag] => PROPERTY
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => reports.phpcs.dir
+                    [VALUE] => ../build/logs
+                )
+
+        )
+
+    [22] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [23] => Array
+        (
+            [tag] => PROPERTY
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => reports.dir
+                    [VALUE] => ../build/logs
+                )
+
+        )
+
+    [24] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [25] => Array
+        (
+            [tag] => PROPERTY
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => reports.phpunit.dir
+                    [VALUE] => ../../build/logs
+                )
+
+        )
+
+    [26] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [27] => Array
+        (
+            [tag] => PROPERTY
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => reports.coverage.dir
+                    [VALUE] => ../../build/logs/coverage
+                )
+
+        )
+
+    [28] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [29] => Array
+        (
+            [tag] => PROPERTY
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => api.dir
+                    [VALUE] => ../build/api
+                )
+
+        )
+
+    [30] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [31] => Array
+        (
+            [tag] => TARGET
+            [type] => open
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => prepare
+                )
+
+            [value] => 
+	
+        )
+
+    [32] => Array
+        (
+            [tag] => DELETE
+            [type] => complete
+            [level] => 3
+            [attributes] => Array
+                (
+                    [DIR] => ${build.dir}
+                )
+
+        )
+
+    [33] => Array
+        (
+            [tag] => TARGET
+            [value] => 
+
+            [type] => cdata
+            [level] => 2
+        )
+
+    [34] => Array
+        (
+            [tag] => TARGET
+            [type] => close
+            [level] => 2
+        )
+
+    [35] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [36] => Array
+        (
+            [tag] => TARGET
+            [type] => open
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => export
+                )
+
+            [value] => 
+    
+        )
+
+    [37] => Array
+        (
+            [tag] => ECHO
+            [type] => complete
+            [level] => 3
+            [attributes] => Array
+                (
+                    [MSG] => Exporting SVN files
+                )
+
+        )
+
+    [38] => Array
+        (
+            [tag] => TARGET
+            [value] => 
+    
+            [type] => cdata
+            [level] => 2
+        )
+
+    [39] => Array
+        (
+            [tag] => EXEC
+            [type] => complete
+            [level] => 3
+            [attributes] => Array
+                (
+                    [COMMAND] => svn export ${source.dir}/src ${build.dir}
+                )
+
+        )
+
+    [40] => Array
+        (
+            [tag] => TARGET
+            [value] => 
+    
+            [type] => cdata
+            [level] => 2
+        )
+
+    [41] => Array
+        (
+            [tag] => MKDIR
+            [type] => complete
+            [level] => 3
+            [attributes] => Array
+                (
+                    [DIR] => ${build.dir}/package/${package-name}-${version}
+                )
+
+        )
+
+    [42] => Array
+        (
+            [tag] => TARGET
+            [value] => 
+    
+            [type] => cdata
+            [level] => 2
+        )
+
+    [43] => Array
+        (
+            [tag] => COPY
+            [type] => open
+            [level] => 3
+            [attributes] => Array
+                (
+                    [TODIR] => ${build.dir}/package/${package-name}-${version}
+                )
+
+            [value] => 
+        
+        )
+
+    [44] => Array
+        (
+            [tag] => FILTERCHAIN
+            [type] => open
+            [level] => 4
+            [value] => 
+            
+        )
+
+    [45] => Array
+        (
+            [tag] => REPLACETOKENS
+            [type] => open
+            [level] => 5
+            [attributes] => Array
+                (
+                    [BEGINTOKEN] => @@
+                    [ENDTOKEN] => @@
+                )
+
+            [value] => 
+                
+        )
+
+    [46] => Array
+        (
+            [tag] => TOKEN
+            [type] => complete
+            [level] => 6
+            [attributes] => Array
+                (
+                    [KEY] => VERSION
+                    [VALUE] => ${version}
+                )
+
+        )
+
+    [47] => Array
+        (
+            [tag] => REPLACETOKENS
+            [value] => 
+            
+            [type] => cdata
+            [level] => 5
+        )
+
+    [48] => Array
+        (
+            [tag] => REPLACETOKENS
+            [type] => close
+            [level] => 5
+        )
+
+    [49] => Array
+        (
+            [tag] => FILTERCHAIN
+            [value] => 
+        
+            [type] => cdata
+            [level] => 4
+        )
+
+    [50] => Array
+        (
+            [tag] => FILTERCHAIN
+            [type] => close
+            [level] => 4
+        )
+
+    [51] => Array
+        (
+            [tag] => COPY
+            [value] => 
+        
+            [type] => cdata
+            [level] => 3
+        )
+
+    [52] => Array
+        (
+            [tag] => FILESET
+            [type] => open
+            [level] => 4
+            [attributes] => Array
+                (
+                    [DIR] => ${build.dir}
+                )
+
+            [value] => 
+            
+        )
+
+    [53] => Array
+        (
+            [tag] => INCLUDE
+            [type] => complete
+            [level] => 5
+            [attributes] => Array
+                (
+                    [NAME] => Ilib/**
+                )
+
+        )
+
+    [54] => Array
+        (
+            [tag] => FILESET
+            [value] => 
+        
+            [type] => cdata
+            [level] => 4
+        )
+
+    [55] => Array
+        (
+            [tag] => FILESET
+            [type] => close
+            [level] => 4
+        )
+
+    [56] => Array
+        (
+            [tag] => COPY
+            [value] => 
+    
+            [type] => cdata
+            [level] => 3
+        )
+
+    [57] => Array
+        (
+            [tag] => COPY
+            [type] => close
+            [level] => 3
+        )
+
+    [58] => Array
+        (
+            [tag] => TARGET
+            [value] => 
+
+            [type] => cdata
+            [level] => 2
+        )
+
+    [59] => Array
+        (
+            [tag] => TARGET
+            [type] => close
+            [level] => 2
+        )
+
+    [60] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [61] => Array
+        (
+            [tag] => TARGET
+            [type] => open
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => pear
+                    [DEPENDS] => export
+                )
+
+            [value] => 
+    
+        )
+
+    [62] => Array
+        (
+            [tag] => D51PEARPKG2
+            [type] => open
+            [level] => 3
+            [attributes] => Array
+                (
+                    [DIR] => ${build.dir}/package/${package-name}-${version}/
+                    [BASEINSTALLDIR] => /
+                )
+
+            [value] => 
+        
+        )
+
+    [63] => Array
+        (
+            [tag] => NAME
+            [type] => complete
+            [level] => 4
+            [value] => ${package-name}
+        )
+
+    [64] => Array
+        (
+            [tag] => D51PEARPKG2
+            [value] => 
+        
+            [type] => cdata
+            [level] => 3
+        )
+
+    [65] => Array
+        (
+            [tag] => SUMMARY
+            [type] => complete
+            [level] => 4
+            [value] => Summary
+        )
+
+    [66] => Array
+        (
+            [tag] => D51PEARPKG2
+            [value] => 
+        
+            [type] => cdata
+            [level] => 3
+        )
+
+    [67] => Array
+        (
+            [tag] => CHANNEL
+            [type] => complete
+            [level] => 4
+            [value] => ${pear.channel}
+        )
+
+    [68] => Array
+        (
+            [tag] => D51PEARPKG2
+            [value] => 
+        
+            [type] => cdata
+            [level] => 3
+        )
+
+    [69] => Array
+        (
+            [tag] => DESCRIPTION
+            [type] => complete
+            [level] => 4
+            [value] => 
+Description        
+        )
+
+    [70] => Array
+        (
+            [tag] => D51PEARPKG2
+            [value] => 
+        
+            [type] => cdata
+            [level] => 3
+        )
+
+    [71] => Array
+        (
+            [tag] => LEAD
+            [type] => complete
+            [level] => 4
+            [attributes] => Array
+                (
+                    [USER] => lsolesen
+                    [NAME] => Lars Olesen
+                    [EMAIL] => lars@legestue.net
+                )
+
+        )
+
+    [72] => Array
+        (
+            [tag] => D51PEARPKG2
+            [value] => 
+        
+            [type] => cdata
+            [level] => 3
+        )
+
+    [73] => Array
+        (
+            [tag] => LEAD
+            [type] => complete
+            [level] => 4
+            [attributes] => Array
+                (
+                    [USER] => sune.t.jensen
+                    [NAME] => Sune Jensen
+                    [EMAIL] => sj@sunet.dk
+                )
+
+        )
+
+    [74] => Array
+        (
+            [tag] => D51PEARPKG2
+            [value] => 
+        
+            [type] => cdata
+            [level] => 3
+        )
+
+    [75] => Array
+        (
+            [tag] => LICENSE
+            [type] => complete
+            [level] => 4
+            [value] => LGPL
+        )
+
+    [76] => Array
+        (
+            [tag] => D51PEARPKG2
+            [value] => 
+        
+            [type] => cdata
+            [level] => 3
+        )
+
+    [77] => Array
+        (
+            [tag] => VERSION
+            [type] => complete
+            [level] => 4
+            [attributes] => Array
+                (
+                    [RELEASE] => ${version}
+                    [API] => ${version}
+                )
+
+        )
+
+    [78] => Array
+        (
+            [tag] => D51PEARPKG2
+            [value] => 
+        
+            [type] => cdata
+            [level] => 3
+        )
+
+    [79] => Array
+        (
+            [tag] => STABILITY
+            [type] => complete
+            [level] => 4
+            [attributes] => Array
+                (
+                    [RELEASE] => ${stability}
+                    [API] => ${stability}
+                )
+
+        )
+
+    [80] => Array
+        (
+            [tag] => D51PEARPKG2
+            [value] => 
+        
+            [type] => cdata
+            [level] => 3
+        )
+
+    [81] => Array
+        (
+            [tag] => DEPENDENCIES
+            [type] => open
+            [level] => 4
+            [value] => 
+            
+        )
+
+    [82] => Array
+        (
+            [tag] => PHP
+            [type] => complete
+            [level] => 5
+            [attributes] => Array
+                (
+                    [MINIMUM_VERSION] => 5.2.0
+                )
+
+        )
+
+    [83] => Array
+        (
+            [tag] => DEPENDENCIES
+            [value] => 
+            
+            [type] => cdata
+            [level] => 4
+        )
+
+    [84] => Array
+        (
+            [tag] => PEAR
+            [type] => complete
+            [level] => 5
+            [attributes] => Array
+                (
+                    [MINIMUM_VERSION] => 1.6.0
+                    [RECOMMENDED_VERSION] => 1.6.1
+                )
+
+        )
+
+    [85] => Array
+        (
+            [tag] => DEPENDENCIES
+            [value] => 
+            
+            [type] => cdata
+            [level] => 4
+        )
+
+    [86] => Array
+        (
+            [tag] => PACKAGE
+            [type] => complete
+            [level] => 5
+            [attributes] => Array
+                (
+                    [NAME] => name
+                    [CHANNEL] => channel
+                    [RECOMMENDED_VERSION] => 0.0.2
+                    [MINIMUM_VERSION] => 0.0.1
+                )
+
+        )
+
+    [87] => Array
+        (
+            [tag] => DEPENDENCIES
+            [value] => 
+        
+            [type] => cdata
+            [level] => 4
+        )
+
+    [88] => Array
+        (
+            [tag] => DEPENDENCIES
+            [type] => close
+            [level] => 4
+        )
+
+    [89] => Array
+        (
+            [tag] => D51PEARPKG2
+            [value] => 
+        
+            [type] => cdata
+            [level] => 3
+        )
+
+    [90] => Array
+        (
+            [tag] => NOTES
+            [type] => complete
+            [level] => 4
+            [value] => Notes
+        )
+
+    [91] => Array
+        (
+            [tag] => D51PEARPKG2
+            [value] => 
+    
+            [type] => cdata
+            [level] => 3
+        )
+
+    [92] => Array
+        (
+            [tag] => D51PEARPKG2
+            [type] => close
+            [level] => 3
+        )
+
+    [93] => Array
+        (
+            [tag] => TARGET
+            [value] => 
+
+            [type] => cdata
+            [level] => 2
+        )
+
+    [94] => Array
+        (
+            [tag] => TARGET
+            [type] => close
+            [level] => 2
+        )
+
+    [95] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [96] => Array
+        (
+            [tag] => TARGET
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => build
+                    [DEPENDS] => prepare, export, test, phpcs, php-documentor, make-pear-package
+                )
+
+        )
+
+    [97] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [98] => Array
+        (
+            [tag] => TARGET
+            [type] => open
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => make-pear-package
+                    [DEPENDS] => pear
+                )
+
+            [value] => 
+    
+        )
+
+    [99] => Array
+        (
+            [tag] => TAR
+            [type] => complete
+            [level] => 3
+            [attributes] => Array
+                (
+                    [COMPRESSION] => gzip
+                    [DESTFILE] => ${build.dir}/${package-name}-${version}.tgz
+                    [BASEDIR] => ${build.dir}/package
+                )
+
+        )
+
+    [100] => Array
+        (
+            [tag] => TARGET
+            [value] => 
+
+            [type] => cdata
+            [level] => 2
+        )
+
+    [101] => Array
+        (
+            [tag] => TARGET
+            [type] => close
+            [level] => 2
+        )
+
+    [102] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [103] => Array
+        (
+            [tag] => TARGET
+            [type] => open
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => deploy
+                    [DEPENDS] => pear
+                )
+
+            [value] => 
+    
+        )
+
+    [104] => Array
+        (
+            [tag] => PROPERTY
+            [type] => complete
+            [level] => 3
+            [attributes] => Array
+                (
+                    [FILE] => ./build.properties
+                )
+
+        )
+
+    [105] => Array
+        (
+            [tag] => TARGET
+            [value] => 
+    
+            [type] => cdata
+            [level] => 2
+        )
+
+    [106] => Array
+        (
+            [tag] => PEARDEPLOY
+            [type] => open
+            [level] => 3
+            [attributes] => Array
+                (
+                    [URI] => ${pear.channel.uri}
+                    [USERNAME] => ${pear.channel.username}
+                    [PASSWORD] => ${pear.channel.password}
+                )
+
+            [value] => 
+        
+        )
+
+    [107] => Array
+        (
+            [tag] => FILESET
+            [type] => open
+            [level] => 4
+            [attributes] => Array
+                (
+                    [DIR] => ${build.dir}
+                )
+
+            [value] => 
+            
+        )
+
+    [108] => Array
+        (
+            [tag] => INCLUDE
+            [type] => complete
+            [level] => 5
+            [attributes] => Array
+                (
+                    [NAME] => ${package-name}-${version}.tgz
+                )
+
+        )
+
+    [109] => Array
+        (
+            [tag] => FILESET
+            [value] => 
+        
+            [type] => cdata
+            [level] => 4
+        )
+
+    [110] => Array
+        (
+            [tag] => FILESET
+            [type] => close
+            [level] => 4
+        )
+
+    [111] => Array
+        (
+            [tag] => PEARDEPLOY
+            [value] => 
+    
+            [type] => cdata
+            [level] => 3
+        )
+
+    [112] => Array
+        (
+            [tag] => PEARDEPLOY
+            [type] => close
+            [level] => 3
+        )
+
+    [113] => Array
+        (
+            [tag] => TARGET
+            [value] => 
+    
+            [type] => cdata
+            [level] => 2
+        )
+
+    [114] => Array
+        (
+            [tag] => FTPDEPLOY
+            [type] => open
+            [level] => 3
+            [attributes] => Array
+                (
+                    [HOST] => ${ftp.host}
+                    [USERNAME] => ${ftp.user}
+                    [PASSWORD] => ${ftp.password}
+                    [PORT] => 21
+                    [DIR] => ./public.intraface.dk/docs/${package-name}
+                    [MODE] => binary
+                    [CLEARFIRST] => false
+                )
+
+            [value] => 
+        
+        )
+
+    [115] => Array
+        (
+            [tag] => FILESET
+            [type] => open
+            [level] => 4
+            [attributes] => Array
+                (
+                    [DIR] => ${api.dir}
+                )
+
+            [value] => 
+            
+        )
+
+    [116] => Array
+        (
+            [tag] => INCLUDE
+            [type] => complete
+            [level] => 5
+            [attributes] => Array
+                (
+                    [NAME] => */**
+                )
+
+        )
+
+    [117] => Array
+        (
+            [tag] => FILESET
+            [value] => 
+        
+            [type] => cdata
+            [level] => 4
+        )
+
+    [118] => Array
+        (
+            [tag] => FILESET
+            [type] => close
+            [level] => 4
+        )
+
+    [119] => Array
+        (
+            [tag] => FTPDEPLOY
+            [value] => 
+    
+            [type] => cdata
+            [level] => 3
+        )
+
+    [120] => Array
+        (
+            [tag] => FTPDEPLOY
+            [type] => close
+            [level] => 3
+        )
+
+    [121] => Array
+        (
+            [tag] => TARGET
+            [value] => 
+
+            [type] => cdata
+            [level] => 2
+        )
+
+    [122] => Array
+        (
+            [tag] => TARGET
+            [type] => close
+            [level] => 2
+        )
+
+    [123] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [124] => Array
+        (
+            [tag] => TARGET
+            [type] => open
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => phpcs
+                )
+
+            [value] => 
+    
+        )
+
+    [125] => Array
+        (
+            [tag] => EXEC
+            [type] => complete
+            [level] => 3
+            [attributes] => Array
+                (
+                    [OUTPUT] => ${reports.phpcs.dir}/checkstyle.xml
+                    [DIR] => ${source.dir}/src
+                    [COMMAND] => phpcs --report=checkstyle . --standard=PEAR
+                )
+
+        )
+
+    [126] => Array
+        (
+            [tag] => TARGET
+            [value] => 
+
+            [type] => cdata
+            [level] => 2
+        )
+
+    [127] => Array
+        (
+            [tag] => TARGET
+            [type] => close
+            [level] => 2
+        )
+
+    [128] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [129] => Array
+        (
+            [tag] => TARGET
+            [type] => open
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => php-documentor
+                    [DEPENDS] => export
+                )
+
+            [value] => 
+    
+        )
+
+    [130] => Array
+        (
+            [tag] => EXEC
+            [type] => complete
+            [level] => 3
+            [attributes] => Array
+                (
+                    [DIR] => ${source.dir}
+                    [COMMAND] => phpdoc -ue on -t ${api.dir} -d ./src
+                    [PASSTHRU] => true
+                )
+
+        )
+
+    [131] => Array
+        (
+            [tag] => TARGET
+            [value] => 
+
+            [type] => cdata
+            [level] => 2
+        )
+
+    [132] => Array
+        (
+            [tag] => TARGET
+            [type] => close
+            [level] => 2
+        )
+
+    [133] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [134] => Array
+        (
+            [tag] => TARGET
+            [type] => complete
+            [level] => 2
+            [attributes] => Array
+                (
+                    [NAME] => test
+                )
+
+            [value] => 
+
+        )
+
+    [135] => Array
+        (
+            [tag] => PROJECT
+            [value] => 
+
+            [type] => cdata
+            [level] => 1
+        )
+
+    [136] => Array
+        (
+            [tag] => PROJECT
+            [type] => close
+            [level] => 1
+        )
+
+)
+Array
+(
+    [PROJECT] => Array
+        (
+            [0] => 0
+            [1] => 2
+            [2] => 4
+            [3] => 6
+            [4] => 8
+            [5] => 10
+            [6] => 12
+            [7] => 14
+            [8] => 16
+            [9] => 18
+            [10] => 20
+            [11] => 22
+            [12] => 24
+            [13] => 26
+            [14] => 28
+            [15] => 30
+            [16] => 35
+            [17] => 60
+            [18] => 95
+            [19] => 97
+            [20] => 102
+            [21] => 123
+            [22] => 128
+            [23] => 133
+            [24] => 135
+            [25] => 136
+        )
+
+    [TASKDEF] => Array
+        (
+            [0] => 1
+            [1] => 3
+            [2] => 5
+        )
+
+    [PROPERTY] => Array
+        (
+            [0] => 7
+            [1] => 9
+            [2] => 11
+            [3] => 13
+            [4] => 15
+            [5] => 17
+            [6] => 19
+            [7] => 21
+            [8] => 23
+            [9] => 25
+            [10] => 27
+            [11] => 29
+            [12] => 104
+        )
+
+    [TARGET] => Array
+        (
+            [0] => 31
+            [1] => 33
+            [2] => 34
+            [3] => 36
+            [4] => 38
+            [5] => 40
+            [6] => 42
+            [7] => 58
+            [8] => 59
+            [9] => 61
+            [10] => 93
+            [11] => 94
+            [12] => 96
+            [13] => 98
+            [14] => 100
+            [15] => 101
+            [16] => 103
+            [17] => 105
+            [18] => 113
+            [19] => 121
+            [20] => 122
+            [21] => 124
+            [22] => 126
+            [23] => 127
+            [24] => 129
+            [25] => 131
+            [26] => 132
+            [27] => 134
+        )
+
+    [DELETE] => Array
+        (
+            [0] => 32
+        )
+
+    [ECHO] => Array
+        (
+            [0] => 37
+        )
+
+    [EXEC] => Array
+        (
+            [0] => 39
+            [1] => 125
+            [2] => 130
+        )
+
+    [MKDIR] => Array
+        (
+            [0] => 41
+        )
+
+    [COPY] => Array
+        (
+            [0] => 43
+            [1] => 51
+            [2] => 56
+            [3] => 57
+        )
+
+    [FILTERCHAIN] => Array
+        (
+            [0] => 44
+            [1] => 49
+            [2] => 50
+        )
+
+    [REPLACETOKENS] => Array
+        (
+            [0] => 45
+            [1] => 47
+            [2] => 48
+        )
+
+    [TOKEN] => Array
+        (
+            [0] => 46
+        )
+
+    [FILESET] => Array
+        (
+            [0] => 52
+            [1] => 54
+            [2] => 55
+            [3] => 107
+            [4] => 109
+            [5] => 110
+            [6] => 115
+            [7] => 117
+            [8] => 118
+        )
+
+    [INCLUDE] => Array
+        (
+            [0] => 53
+            [1] => 108
+            [2] => 116
+        )
+
+    [D51PEARPKG2] => Array
+        (
+            [0] => 62
+            [1] => 64
+            [2] => 66
+            [3] => 68
+            [4] => 70
+            [5] => 72
+            [6] => 74
+            [7] => 76
+            [8] => 78
+            [9] => 80
+            [10] => 89
+            [11] => 91
+            [12] => 92
+        )
+
+    [NAME] => Array
+        (
+            [0] => 63
+        )
+
+    [SUMMARY] => Array
+        (
+            [0] => 65
+        )
+
+    [CHANNEL] => Array
+        (
+            [0] => 67
+        )
+
+    [DESCRIPTION] => Array
+        (
+            [0] => 69
+        )
+
+    [LEAD] => Array
+        (
+            [0] => 71
+            [1] => 73
+        )
+
+    [LICENSE] => Array
+        (
+            [0] => 75
+        )
+
+    [VERSION] => Array
+        (
+            [0] => 77
+        )
+
+    [STABILITY] => Array
+        (
+            [0] => 79
+        )
+
+    [DEPENDENCIES] => Array
+        (
+            [0] => 81
+            [1] => 83
+            [2] => 85
+            [3] => 87
+            [4] => 88
+        )
+
+    [PHP] => Array
+        (
+            [0] => 82
+        )
+
+    [PEAR] => Array
+        (
+            [0] => 84
+        )
+
+    [PACKAGE] => Array
+        (
+            [0] => 86
+        )
+
+    [NOTES] => Array
+        (
+            [0] => 90
+        )
+
+    [TAR] => Array
+        (
+            [0] => 99
+        )
+
+    [PEARDEPLOY] => Array
+        (
+            [0] => 106
+            [1] => 111
+            [2] => 112
+        )
+
+    [FTPDEPLOY] => Array
+        (
+            [0] => 114
+            [1] => 119
+            [2] => 120
+        )
+
+)
+
