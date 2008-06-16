@@ -95,13 +95,19 @@ class Ilib_Phing_BuildFile_Parse {
         
         // dependencies
         $return['dependencies'] = array();
+        $i = 0;
         if(!empty($indexes['PACKAGE'])) {
             foreach($indexes['PACKAGE'] AS $key) {
-                $return['dependencies'][] = array(
-                    'name' => $values[$key]['attributes']['NAME'],
-                    'channel' => $values[$key]['attributes']['CHANNEL'],
-                    'recommended_version' => $values[$key]['attributes']['RECOMMENDED_VERSION'],
-                    'minimum_version' => $values[$key]['attributes']['MINIMUM_VERSION']);
+                $return['dependencies'][$i]['name'] = $values[$key]['attributes']['NAME'];
+                $return['dependencies'][$i]['channel'] = $values[$key]['attributes']['CHANNEL'];
+                if(!empty($values[$key]['attributes']['RECOMMENDED_VERSION'])) {
+                    $return['dependencies'][$i]['recommended_version'] = $values[$key]['attributes']['RECOMMENDED_VERSION'];
+                }
+                else {
+                    $return['dependencies'][$i]['recommended_version'] = '';
+                }
+                $return['dependencies'][$i]['minimum_version'] = $values[$key]['attributes']['MINIMUM_VERSION'];
+                $i++;
             }
         }
         
