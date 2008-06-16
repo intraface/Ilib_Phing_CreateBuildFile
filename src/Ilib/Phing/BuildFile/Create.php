@@ -20,8 +20,8 @@
  * @author   Sune Jensen <sj@sunet.dk>
  * @author   Lars Olesen <lars@legestue.net>
  */
-class Ilib_Phing_BuildFile_Create {
-    
+class Ilib_Phing_BuildFile_Create 
+{
     /**
      * @var string name of package
      */
@@ -65,8 +65,8 @@ class Ilib_Phing_BuildFile_Create {
     /**
      * constructor
      */
-    public function __construct() {
-        
+    public function __construct() 
+    {
     }
     
     /**
@@ -74,8 +74,8 @@ class Ilib_Phing_BuildFile_Create {
      * 
      * @return string xml file
      */
-    public function create() {
-        
+    public function create() 
+    {
         $xml = "";
         
         $xml .= $this->createTaskDefinitions();
@@ -111,7 +111,8 @@ class Ilib_Phing_BuildFile_Create {
      * 
      * @return array dependencies
      */
-    public function getDependencies() {
+    public function getDependencies() 
+    {
         return $this->dependencies;
     }
     
@@ -119,7 +120,8 @@ class Ilib_Phing_BuildFile_Create {
      * clear all dependencies in package
      * 
      */
-    public function clearDependencies() {
+    public function clearDependencies() 
+    {
         $this->dependencies = array();
     }
     
@@ -147,7 +149,8 @@ class Ilib_Phing_BuildFile_Create {
      * 
      * @param string $file path to file
      */
-    public function readValuesFromBuildFile($file) {
+    public function readValuesFromBuildFile($file) 
+    {
         require_once 'Ilib/Phing/BuildFile/Parse.php';
         
         $parser = new Ilib_Phing_BuildFile_Parse($file);
@@ -284,7 +287,8 @@ class Ilib_Phing_BuildFile_Create {
     /**
      * returns the task export
      */
-    private function createTaskExport() {
+    private function createTaskExport() 
+    {
         return "    <target name=\"export\">\n" .
                 "        <echo msg=\"Exporting SVN files\" />\n" .
                 "        <exec command=\"svn export \${source.dir}/src \${build.dir}/temp\" />\n" .
@@ -308,7 +312,8 @@ class Ilib_Phing_BuildFile_Create {
     /**
      * returns the tast prepare
      */
-    private function createTaskPrepare() {
+    private function createTaskPrepare() 
+    {
         return "    <target name=\"prepare\">\n" .
                 "        <delete dir=\"\${build.dir}\" />\n" .
                 "        <mkdir dir=\"\${build.dir}\" />\n" .
@@ -318,7 +323,8 @@ class Ilib_Phing_BuildFile_Create {
     /**
      * returns the properties section
      */
-    private function createProperties() {
+    private function createProperties() 
+    {
         return "    <property name=\"package-name\" value=\"\${phing.project.name}\" />\n" .
                 "    <property name=\"version\" value=\"".$this->package_version."\" />\n" .
                 "    <property name=\"stability\" value=\"".$this->package_stability."\" />\n" .
@@ -336,10 +342,10 @@ class Ilib_Phing_BuildFile_Create {
     /**
      * returns task definitions section
      */
-    private function createTaskDefinitions() {
+    private function createTaskDefinitions() 
+    {
         return "    <taskdef classname=\"phing.tasks.ext.d51PearPkg2Task\" name=\"d51pearpkg2\" />\n" .
-                "    <taskdef classname=\"phing.tasks.ext.IlibPearDeployerTask\" name=\"peardeploy\" />\n" .
-                "    <taskdef classname=\"phing.tasks.ext.FtpDeployTask\" name=\"ftpdeploy\" />\n\n";
+               "    <taskdef classname=\"phing.tasks.ext.IlibPearDeployerTask\" name=\"peardeploy\" />\n\n";
     }
     
     /**
@@ -356,8 +362,5 @@ class Ilib_Phing_BuildFile_Create {
     private function createHeader($content) 
     {
         return "<?xml version=\"1.0\" ?>\n".$content;
-    }
-    
+    }   
 }
-
-?>
