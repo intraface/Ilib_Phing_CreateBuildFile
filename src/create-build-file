@@ -168,7 +168,6 @@ if (is_dir('tests')) {
         if (!strcmp(substr($test, 0, 1), '.' )) {
             continue;
         }
-        
         if (is_file($test_dir.DIRECTORY_SEPARATOR.$test) && substr($test, strlen($test) - 8) == 'Test.php') {
             $createbuildfile->addTest(substr($test, 0, strlen($test) - 4));
             $count_tests++;
@@ -178,7 +177,7 @@ if (is_dir('tests')) {
     if ($count_tests == 0) {
         fwrite(STDOUT,"Found no tests\n");
     } else {
-       fwrite(STDOUT,"Found ".$i." test(s)\n"); 
+       fwrite(STDOUT,"Found ".$count_tests." test(s)\n"); 
     }
 }
 
