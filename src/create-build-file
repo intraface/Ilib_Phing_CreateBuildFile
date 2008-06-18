@@ -162,19 +162,32 @@ if (is_dir('tests')) {
     
     $test_dir = 'tests';
     $count_tests = 0;
+    $found_alltests = false;
     
     fwrite(STDOUT,"Scanning test dir for tests... (need to end with *Test.php)\n");
     foreach (scandir($test_dir) as $test) {
         if (!strcmp(substr($test, 0, 1), '.' )) {
             continue;
         }
-        if (is_file($test_dir.DIRECTORY_SEPARATOR.$test) && substr($test, strlen($test) - 8) == 'Test.php') {
-            $createbuildfile->addTest(substr($test, 0, strlen($test) - 4));
-            $count_tests++;
+        if (is_file($test_dir.DIRECTORY_SEPARATOR.$test)) {
+            if($test == 'AllTests.php') {
+                // we clear all tests and only adds this one
+                $createbuildfile->clearTests();
+                $createbuildfile->addTest(substr($test, 0, strlen($test) - 4));
+                $found_alltests = true;
+                break;
+            }
+            elseif(substr($test, strlen($test) - 8) == 'Test.php') {
+                $createbuildfile->addTest(substr($test, 0, strlen($test) - 4));
+                $count_tests++;
+            }
         }
     }
     
-    if ($count_tests == 0) {
+    if($found_alltests == true) {
+        fwrite(STDOUT,"Found a AllTests.php test suite. Make sure it containes all other tests.\n");
+    }
+    elseif ($count_tests == 0) {
         fwrite(STDOUT,"Found no tests\n");
     } else {
        fwrite(STDOUT,"Found ".$count_tests." test(s)\n"); 
