@@ -218,7 +218,7 @@ class Ilib_Phing_BuildFile_Create
      */
     private function createTaskDeploy()
     {
-        return "    <target name=\"deploy\" depends=\"pear\">\n" .
+        return "    <target name=\"deploy\" depends=\"build\">\n" .
                 "        <property file=\"./build.properties\" />\n" .
                 "        <peardeploy uri=\"\${pear.channel.uri}\" username=\"\${pear.channel.username}\" password=\"\${pear.channel.password}\">\n" .
                 "            <fileset dir=\"\${build.dir}\">\n" .
