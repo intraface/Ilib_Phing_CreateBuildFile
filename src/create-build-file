@@ -145,7 +145,7 @@ while(true) {
             $dependency_recommended_version = $dependencies[$i]['recommended_version'];
         }
     
-        $createbuildfile->addDependency($dependency_name,  $dependency_channel, $dependency_minimum_version, $dependency_recommended_version);
+        $createbuildfile->addDependency($dependency_name,  $dependency_channel, $dependency_recommended_version, $dependency_minimum_version);
     } else {
         // only if there is no more existing dependencies we exit.
         if (empty($dependencies[($i+1)])) {
