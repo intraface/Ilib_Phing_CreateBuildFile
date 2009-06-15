@@ -63,6 +63,11 @@ class Ilib_Phing_BuildFile_Create
     private $tests = array();
     
     /**
+     * @var array roles = array();
+     */
+    private $roles;
+    
+    /**
      * constructor
      */
     public function __construct() 
@@ -142,6 +147,22 @@ class Ilib_Phing_BuildFile_Create
     public function clearTests()
     {
         $this->tests = array();
+    }
+    
+    /**
+     * Add pear roles to files
+     */
+    public function addFileRole($file, $role) 
+    {
+        $this->roles[$role][] = $file;
+    }
+    
+    private function getFileRoles($role)
+    {
+        if(isset($this->roles[$role])) {
+            return $this->roles[$role];
+        }
+        return array();
     }
     
     /**
@@ -267,7 +288,24 @@ class Ilib_Phing_BuildFile_Create
                 "            <lead user=\"sune.t.jensen\" name=\"Sune Jensen\" email=\"sj@sunet.dk\" />\n" .
                 "            <license>LGPL</license>\n" .
                 "            <version release=\"\${version}\" api=\"\${version}\" />\n" .
-                "            <stability release=\"\${stability}\" api=\"\${stability}\" />\n" .
+                "            <stability release=\"\${stability}\" api=\"\${stability}\" />\n";
+         # Find roles to install as
+        $roles = array('script', 'doc', 'www');
+        foreach($roles AS $role) {
+            $files = $this->getFileRoles($role);
+            if(count($files) > 0) {
+                $return .= "            <dirroles key=\"".$role."\">".$role."</dirroles>\n";
+            }
+        }
+        $return .= "            <release>\n";
+        foreach($roles AS $role) {
+            $files = $this->getFileRoles($role);
+            foreach($files AS $file) {
+                $return .= "                <install as=\"".$file."\" name=\"".$role."/".$file."\" />\n";
+            }
+        }
+        
+        $return .= "            </release>\n" .
                 "            <dependencies>\n" .
                 "                <php minimum_version=\"5.2.0\" />\n" .
                 "                <pear minimum_version=\"1.6.0\" recommended_version=\"1.6.1\" />\n";

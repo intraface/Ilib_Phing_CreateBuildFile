@@ -1,10 +1,22 @@
 #!/usr/bin/php
 <?php
-
-set_include_path(realpath(dirname(__FILE__)).PATH_SEPARATOR.get_include_path());
+set_include_path(realpath(dirname(__FILE__).'/../').PATH_SEPARATOR.get_include_path());
 
 require_once 'Ilib/Phing/BuildFile/Create.php';
 $createbuildfile = new Ilib_Phing_BuildFile_Create();
+
+function getFilelist($dir) {
+    $files = glob($dir.'/*');
+    $rFiles = array();
+    foreach ($files as $f) {
+        if (is_dir($f)) { 
+            $rFiles = array_merge($rFiles, getFileList($f));
+            continue; 
+        }
+        $rFiles[] = $f;
+    }
+    return $rFiles;
+}
 
 fwrite(STDOUT,"Create Phing Build File to ilib packages\n");
 fwrite(STDOUT,"http://public.intraface.dk\n\n");
@@ -191,6 +203,16 @@ if (is_dir('tests')) {
         fwrite(STDOUT,"Found no tests\n");
     } else {
        fwrite(STDOUT,"Found ".$count_tests." test(s)\n"); 
+    }
+}
+
+$roles = array('script', 'doc', 'www');
+foreach($roles AS $role) {
+    if(is_dir('src/'.$role)) {
+        $files = getFileList('src/'.$role);
+        foreach($files AS $file) {
+            $createbuildfile->addFileRole(substr($file, strlen('src/'.$role.'/')), $role);
+        }
     }
 }
 
