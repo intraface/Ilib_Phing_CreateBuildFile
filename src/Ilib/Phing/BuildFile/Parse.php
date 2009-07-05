@@ -111,6 +111,19 @@ class Ilib_Phing_BuildFile_Parse {
             }
         }
         
+        // replacements
+        $return['replacements'] = array();
+        $i = 0;
+        if(!empty($indexes['REPLACEMENT'])) {
+            foreach($indexes['REPLACEMENT'] AS $key) {
+                $return['replacements'][$i]['path'] = $values[$key]['attributes']['PATH'];
+                $return['replacements'][$i]['type'] = $values[$key]['attributes']['TYPE'];
+                $return['replacements'][$i]['from'] = $values[$key]['attributes']['FROM'];
+                $return['replacements'][$i]['to'] = $values[$key]['attributes']['TO'];
+                $i++;
+            }
+        }
+        
         return $return;
     }    
 }

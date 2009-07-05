@@ -58,6 +58,11 @@ class Ilib_Phing_BuildFile_Create
     private $dependencies = array();
     
     /**
+     * @var array replacements
+     */
+    private $replacements = array();
+    
+    /**
      * @var array tests
      */
     private $tests = array();
@@ -131,6 +136,38 @@ class Ilib_Phing_BuildFile_Create
     }
     
     /**
+     * Adds replacement to package
+     * 
+     * @param string $path name of file
+     * @param string $type type of replacement
+     * @param string $from what to replace
+     * @param string $to what to replace with
+     */
+    public function addReplacement($path, $type, $from, $to)
+    {
+        $this->replacements[] = array('path' => $path, 'type' => $type, 'from' => $from, 'to' => $to);
+    }
+    
+    /**
+     * return array of replacements
+     * 
+     * @return array replacements
+     */
+    public function getReplacements() 
+    {
+        return $this->replacements;
+    }
+    
+    /**
+     * clear all replacements in package
+     * 
+     */
+    public function clearReplacements() 
+    {
+        $this->replacements = array();
+    }
+    
+    /**
      * Add test to build
      * the tests should be placed in the ${test.dir} in the properties section
      * 
@@ -186,6 +223,10 @@ class Ilib_Phing_BuildFile_Create
         
         foreach($values['dependencies'] AS $dependency) {
             $this->addDependency($dependency['name'], $dependency['channel'], $dependency['recommended_version'], $dependency['minimum_version']);
+        }
+        
+        foreach($values['replacements'] AS $replacement) {
+            $this->addReplacement($replacement['path'], $replacement['type'], $replacement['from'], $replacement['to']);
         }
         
         /**
@@ -315,8 +356,13 @@ class Ilib_Phing_BuildFile_Create
         }
     
         $return .= "            </dependencies>\n" .
-                "            <notes>".$this->release_notes."</notes>\n" .
-                "        </d51pearpkg2>\n" .
+                "            <notes>".$this->release_notes."</notes>\n";
+        
+        foreach($this->replacements AS $replacement) {
+            $return .= "            <replacement path=\"".$replacement['path']."\" type=\"".$replacement['type']."\" from=\"".$replacement['from']."\" to=\"".$replacement['to']."\" />\n";
+        }
+        
+        $return .= "        </d51pearpkg2>\n" .
                 "    </target>\n\n";
         
         return $return;

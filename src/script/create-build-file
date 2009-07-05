@@ -97,12 +97,83 @@ if (!empty($package_summary)) $createbuildfile->package_summary = $package_summa
 if (!empty($package_description)) $createbuildfile->package_description = $package_description;
 if (!empty($release_notes)) $createbuildfile->release_notes = $release_notes;
 
+$replacements = $createbuildfile->getReplacements();
+$createbuildfile->clearReplacements();
+
+$i = 0;
+while(true) {
+    fwrite(STDOUT,"\n".'REPLACEMENT '.($i+1)."\n");
+    
+    fwrite(STDOUT,"PATH\n");
+    if (!empty($replacements[$i]) && !empty($replacements[$i]['path'])) {
+        fwrite(STDOUT,'Found: '. $replacements[$i]['path']."\n");
+        fwrite(STDOUT,"Enter name or leave empty to use existing or enter '/delete' to remove: ");
+    } else {
+        fwrite(STDOUT,'Enter or leave empty if no more replacements: ');
+    }
+    $replacement_path = trim(fgets(STDIN));
+    
+    // if edditing existing replacement an leaving it empty it should be replaced by the existing.
+    if (!empty($replacements[$i]) && !empty($replacements[$i]['path']) && empty($replacement_path)) {
+        $replacement_path = $replacements[$i]['path'];
+    }
+    
+    if (!empty($replacement_path) && $replacement_path != "/delete") {
+        
+        fwrite(STDOUT,"TYPE (php-const, pear-config, package-info)\n");
+        if (!empty($replacements[$i]) && !empty($replacements[$i]['type'])) {
+            fwrite(STDOUT,'Found: '. $replacements[$i]['type']."\n");
+            fwrite(STDOUT,"Enter or leave empty to use existing: ");
+        } else {
+            fwrite(STDOUT,'Enter: ');
+        }
+        $replacement_type = trim(fgets(STDIN));
+        
+        if (!empty($replacements[$i]) && !empty($replacements[$i]['type']) && empty($replacement_type)) {
+            $replacement_type = $replacements[$i]['type'];
+        }
+    
+        fwrite(STDOUT,"FROM (e.g. @data_dir@) \n");
+        if (!empty($replacements[$i]) && !empty($replacements[$i]['from'])) {
+            fwrite(STDOUT,'Found: '. $replacements[$i]['from']."\n");
+            fwrite(STDOUT,"Enter or leave empty to use existing: ");
+        } else {
+            fwrite(STDOUT,'Enter: ');
+        }
+        $replacement_from = trim(fgets(STDIN));
+        if (!empty($replacements[$i]) && !empty($replacements[$i]['from']) && empty($replacement_from)) {
+            $replacement_from = $replacements[$i]['from'];
+        }
+    
+        fwrite(STDOUT,"TO (e.g. data_dir)\n");
+        if (!empty($replacements[$i]) && !empty($replacements[$i]['to'])) {
+            fwrite(STDOUT,'Found: '. $replacements[$i]['to']."\n");
+            fwrite(STDOUT,"Enter or leave empty to use existing: ");
+        } else {
+            fwrite(STDOUT,'Enter: ');
+        }
+        $replacement_to = trim(fgets(STDIN));
+        if (!empty($replacements[$i]) && !empty($replacements[$i]['to']) && empty($replacement_to)) {
+            $replacement_to = $replacements[$i]['to'];
+        }
+    
+        $createbuildfile->addReplacement($replacement_path,  $replacement_type, $replacement_from, $replacement_to);
+    } else {
+        // only if there is no more existing dependencies we exit.
+        if (empty($replacements[($i+1)])) {
+            break;
+        }
+    }
+    $i++;
+}
+
+
 $dependencies = $createbuildfile->getDependencies();
 $createbuildfile->clearDependencies();
 
 $i = 0;
 while(true) {
-    fwrite(STDOUT,'DEPENDENCY '.($i+1)."\n");
+    fwrite(STDOUT,"\n".'DEPENDENCY '.($i+1)."\n");
     
     fwrite(STDOUT,"NAME\n");
     if (!empty($dependencies[$i]) && !empty($dependencies[$i]['name'])) {
@@ -131,6 +202,16 @@ while(true) {
         
         if (!empty($dependencies[$i]) && !empty($dependencies[$i]['channel']) && empty($dependency_channel)) {
             $dependency_channel = $dependencies[$i]['channel'];
+        }
+        
+        require_once 'PEAR/PackageUpdate.php';
+        $ppu = PEAR_PackageUpdate::factory('Cli', $dependency_name, $dependency_channel);
+        if($ppu != false) {
+            fwrite(STDOUT,"FETCHING LATEST RELEASE. Please wait...\n");
+            $release = $ppu->getLatestRelease();
+            if($release != false) {
+                fwrite(STDOUT,"LATEST RELEASE: ".$release['state']." ".$release['version']."\n");
+            }
         }
     
         fwrite(STDOUT,"MINIMUM VERSION (X.X.X)\n");
