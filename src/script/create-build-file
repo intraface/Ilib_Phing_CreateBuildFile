@@ -167,6 +167,36 @@ while(true) {
     $i++;
 }
 
+$excludes = $createbuildfile->getExcludes();
+$createbuildfile->clearExcludes();
+
+$i = 0;
+while(true) {
+    fwrite(STDOUT,"\n".'EXCLUDE '.($i+1)."\n");
+    
+    fwrite(STDOUT,"PATH (e.g. www/config.local.php)\n");
+    if (!empty($excludes[$i])) {
+        fwrite(STDOUT,'Found: '. $excludes[$i]."\n");
+        fwrite(STDOUT,"Enter path or leave empty to use existing or enter '/delete' to remove: ");
+    } else {
+        fwrite(STDOUT,'Enter or leave empty if no more excludes: ');
+    }
+    $exclude = trim(fgets(STDIN));
+    // if edditing existing replacement an leaving it empty it should be replaced by the existing.
+    if (!empty($excludes[$i]) && empty($exclude)) {
+        $exclude = $excludes[$i];
+    }
+    
+    if (!empty($exclude) && $exclude != "/delete") {
+        $createbuildfile->addExclude($exclude);
+    } else {
+        // only if there is no more existing dependencies we exit.
+        if (empty($excludes[($i+1)])) {
+            break;
+        }
+    }
+    $i++;
+}
 
 $dependencies = $createbuildfile->getDependencies();
 $createbuildfile->clearDependencies();

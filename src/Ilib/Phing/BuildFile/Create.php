@@ -63,6 +63,11 @@ class Ilib_Phing_BuildFile_Create
     private $replacements = array();
     
     /**
+     * @var array excludes
+     */
+    private $excludes = array();
+    
+    /**
      * @var array tests
      */
     private $tests = array();
@@ -168,6 +173,35 @@ class Ilib_Phing_BuildFile_Create
     }
     
     /**
+     * Adds exclude to export tast
+     * 
+     * @param string $path to exclude
+     */
+    public function addExclude($path)
+    {
+        $this->excludes[] = $path;
+    }
+    
+    /**
+     * return array of excludes
+     * 
+     * @return array ecludes
+     */
+    public function getExcludes() 
+    {
+        return $this->excludes;
+    }
+    
+    /**
+     * clear all excludes in package
+     * 
+     */
+    public function clearExcludes() 
+    {
+        $this->excludes = array();
+    }
+    
+    /**
      * Add test to build
      * the tests should be placed in the ${test.dir} in the properties section
      * 
@@ -227,6 +261,10 @@ class Ilib_Phing_BuildFile_Create
         
         foreach($values['replacements'] AS $replacement) {
             $this->addReplacement($replacement['path'], $replacement['type'], $replacement['from'], $replacement['to']);
+        }
+        
+        foreach($values['excludes'] AS $exclude) {
+            $this->addExclude($exclude);
         }
         
         /**
@@ -373,7 +411,7 @@ class Ilib_Phing_BuildFile_Create
      */
     private function createTaskExport() 
     {
-        return "    <target name=\"export\">\n" .
+        $return = "    <target name=\"export\">\n" .
                 "        <echo msg=\"Exporting SVN files\" />\n" .
                 "        <exec command=\"svn export \${source.dir}/src \${build.dir}/temp\" />\n" .
                 "        <mkdir dir=\"\${build.dir}/package/\${package-name}-\${version}\" />\n" .
@@ -384,13 +422,15 @@ class Ilib_Phing_BuildFile_Create
                 "                </replacetokens>\n" .
                 "            </filterchain>\n" .
                 "            <fileset dir=\"\${build.dir}/temp\">\n" .
-                "                <include name=\"**\" />\n" .
-                "            </fileset>\n" .
+                "                <include name=\"**\" />\n";
+        foreach($this->getExcludes() AS $exclude) {
+            $return .= "                <exclude name=\"".$exclude."\" />\n";
+        }
+        $return .= "            </fileset>\n" .
                 "        </copy>\n" .
                 "    </target>\n\n";
-        // trying to move package file but unsuccessfull!
-        //                 "        <move file=\"\${build.dir}/package/\${package-name}-\${version}/package.xml\" tofile=\"\${build.dir}/package/package.xml\" overwrite=\"true\" />" .
         
+        return $return; 
     }
     
     /**

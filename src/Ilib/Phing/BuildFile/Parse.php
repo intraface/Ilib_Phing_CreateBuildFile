@@ -54,7 +54,6 @@ class Ilib_Phing_BuildFile_Parse {
         
         xml_parse_into_struct($xml_parser, $content, $values, $indexes);
         
-        
         // find package_name
         foreach($indexes['PROJECT'] AS $key) {
             if(!empty($values[$key]['attributes']['NAME'])) {
@@ -121,6 +120,28 @@ class Ilib_Phing_BuildFile_Parse {
                 $return['replacements'][$i]['from'] = $values[$key]['attributes']['FROM'];
                 $return['replacements'][$i]['to'] = $values[$key]['attributes']['TO'];
                 $i++;
+            }
+        }
+        
+        // excludes
+        $return['excludes'] = array();
+        foreach($indexes['TARGET'] AS $key) {
+            if(isset($values[$key]['type']) && $values[$key]['type'] == 'open' && 
+                isset($values[$key]['attributes']) && isset($values[$key]['attributes']['NAME']) && 
+                $values[$key]['attributes']['NAME'] == 'export') {
+                
+                $export_start = $key;
+            }
+            if(isset($export_start) && isset($values[$key]['type']) && $values[$key]['type'] == 'close') {
+                $export_end = $key;
+                break;
+            }
+        }
+        if(isset($export_start) && isset($export_end)) {
+            for($i = $export_start; $i < $export_end; $i++) {
+                if($values[$i]['tag'] == 'EXCLUDE' && isset($values[$i]['attributes']) && !empty($values[$i]['attributes']['NAME'])) {
+                    $return['excludes'][] = $values[$i]['attributes']['NAME'];
+                }
             }
         }
         

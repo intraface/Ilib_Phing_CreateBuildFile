@@ -2,12 +2,12 @@
 <project name="TestPackage" basedir="." default="build">
     <taskdef classname="phing.tasks.ext.d51PearPkg2Task" name="d51pearpkg2" />
     <taskdef classname="phing.tasks.ext.IlibPearDeployerTask" name="peardeploy" />
-    <taskdef classname="phing.tasks.ext.FtpDeployTask" name="ftpdeploy" />
 
     <property name="package-name" value="${phing.project.name}" />
     <property name="version" value="0.0.3" />
     <property name="stability" value="alpha" />
     <property name="pear.channel" value="public.intraface.dk" />
+
     <property name="source.dir" value="." />
     <property name="tests.dir" value="./tests" />
     <property name="build.dir" value="../build" />
@@ -19,11 +19,12 @@
 
     <target name="prepare">
         <delete dir="${build.dir}" />
+        <mkdir dir="${build.dir}" />
     </target>
 
     <target name="export">
         <echo msg="Exporting SVN files" />
-        <exec command="svn export ${source.dir}/src ${build.dir}" />
+        <exec command="svn export ${source.dir}/src ${build.dir}/temp" />
         <mkdir dir="${build.dir}/package/${package-name}-${version}" />
         <copy todir="${build.dir}/package/${package-name}-${version}">
             <filterchain>
@@ -31,8 +32,9 @@
                     <token key="VERSION" value="${version}" />
                 </replacetokens>
             </filterchain>
-            <fileset dir="${build.dir}">
-                <include name="Ilib/**" />
+            <fileset dir="${build.dir}/temp">
+                <include name="**" />
+                <exclude name="www/config.local.php" />
             </fileset>
         </copy>
     </target>
@@ -50,13 +52,16 @@ I would like to add new lines. But lets see how this works                      
             <license>LGPL</license>
             <version release="${version}" api="${version}" />
             <stability release="${stability}" api="${stability}" />
+            <release>
+            </release>
             <dependencies>
                 <php minimum_version="5.2.0" />
                 <pear minimum_version="1.6.0" recommended_version="1.6.1" />
-                <package name="dep1" channel="channel1" recommended_version="0.0.12" minimum_version="0.0.1" />
+                <package name="Ilib_Countries" channel="public.intraface.dk" recommended_version="1.0.0" minimum_version="1.0.0" />
                 <package name="dep3" channel="channel3" recommended_version="1.0.0" minimum_version="2.0.0" />
             </dependencies>
             <notes>* added functionality</notes>
+            <replacement path="Carmakoma/Root.php" type="pear-config" from="@data_dir@" to="data_dir" />
         </d51pearpkg2>
     </target>
 
@@ -65,14 +70,14 @@ I would like to add new lines. But lets see how this works                      
         <tar compression="gzip" destfile="${build.dir}/${package-name}-${version}.tgz" basedir="${build.dir}/package" />
     </target>
 
-    <target name="deploy" depends="pear">
+    <target name="deploy" depends="build">
         <property file="./build.properties" />
         <peardeploy uri="${pear.channel.uri}" username="${pear.channel.username}" password="${pear.channel.password}">
             <fileset dir="${build.dir}">
                 <include name="${package-name}-${version}.tgz"/>
             </fileset>
         </peardeploy>
-        <ftpdeploy host="${ftp.host}" username="${ftp.user}" password="${ftp.password}" port="21" dir="./public.intraface.dk/docs/${package-name}" mode="binary" clearfirst="false">
+        <ftpdeploy host="${ftp.host}" username="${ftp.user}" password="${ftp.password}" port="21" dir="./public.intraface.dk/docs/" mode="binary" clearfirst="false">
             <fileset dir="${api.dir}">
                 <include name="*/**" />
             </fileset>
@@ -84,16 +89,11 @@ I would like to add new lines. But lets see how this works                      
     </target>
 
     <target name="php-documentor" depends="export">
-        <exec dir="${source.dir}" command="phpdoc -ue on -t ${api.dir} -d ./src" passthru="true" />
+        <mkdir dir="${api.dir}/${package-name}" />
+        <exec dir="${source.dir}" command="phpdoc -ue on -t ${api.dir}/${package-name} -d ./src" passthru="true" />
     </target>
 
     <target name="test">
-        <exec dir="${tests.dir}" command="phpunit
-           --log-xml ${reports.phpunit.dir}/phpunit.xml
-           --log-pmd ${reports.phpunit.dir}/phpunit.pmd.xml
-           --coverage-xml ${reports.phpunit.dir}/phpunit.coverage.xml
-           --coverage-html ${reports.coverage.dir}/
-           CreateBuildFileTest" passthru="true" checkreturn="true" />
     </target>
 
 </project>
