@@ -5,17 +5,18 @@ set_include_path(realpath(dirname(__FILE__).'/../').PATH_SEPARATOR.get_include_p
 require_once 'Ilib/Phing/BuildFile/Create.php';
 $createbuildfile = new Ilib_Phing_BuildFile_Create();
 
-function getFilelist($dir) {
-    $files = glob($dir.'/*');
-    $rFiles = array();
+function globFileList($path) {
+    if(is_dir($path)) $path .= '/*';  
+    $files = glob($path);
+    $return = array();
     foreach ($files as $f) {
         if (is_dir($f)) { 
-            $rFiles = array_merge($rFiles, getFileList($f));
+            $return = array_merge($return, globFileList($f));
             continue; 
         }
-        $rFiles[] = $f;
+        $return[] = $f;
     }
-    return $rFiles;
+    return $return;
 }
 
 fwrite(STDOUT,"Create Phing Build File to ilib packages\n");
@@ -234,13 +235,17 @@ while(true) {
             $dependency_channel = $dependencies[$i]['channel'];
         }
         
-        require_once 'PEAR/PackageUpdate.php';
-        $ppu = PEAR_PackageUpdate::factory('Cli', $dependency_name, $dependency_channel);
-        if($ppu != false) {
-            fwrite(STDOUT,"FETCHING LATEST RELEASE. Please wait...\n");
-            $release = $ppu->getLatestRelease();
-            if($release != false) {
-                fwrite(STDOUT,"LATEST RELEASE: ".$release['state']." ".$release['version']."\n");
+        fwrite(STDOUT,"Check for latest release? (y or enter):");
+        $answer = trim(fgets(STDIN));
+        if($answer == 'y' || $answer == 'yes') {
+           require_once 'PEAR/PackageUpdate.php';
+            $ppu = PEAR_PackageUpdate::factory('Cli', $dependency_name, $dependency_channel);
+            if($ppu != false) {
+                fwrite(STDOUT,"Fetching latest release. Please wait...\n");
+                $release = $ppu->getLatestRelease();
+                if($release != false) {
+                    fwrite(STDOUT,"LATEST RELEASE: ".$release['state']." ".$release['version']."\n");
+                }
             }
         }
     
@@ -317,15 +322,26 @@ if (is_dir('tests')) {
     }
 }
 
+// Build role list
+$current_dir = getcwd();
+chdir('src/');
+$excludes = array();
+foreach($createbuildfile->getExcludes() AS $exclude) {
+    $excludes = array_merge($excludes, globFileList($exclude));
+}
+
 $roles = array('script', 'doc', 'www');
 foreach($roles AS $role) {
-    if(is_dir('src/'.$role)) {
-        $files = getFileList('src/'.$role);
+    if(is_dir($role)) {
+        $files = globFileList($role);
         foreach($files AS $file) {
-            $createbuildfile->addFileRole(substr($file, strlen('src/'.$role.'/')), $role);
+            if(!in_array($file, $excludes)) {
+                $createbuildfile->addFileRole($file, $role);
+            }
         }
     }
 }
+chdir($current_dir);
 
 file_put_contents('build.xml', $createbuildfile->create());
 fwrite(STDOUT, "build.xml file has been written\n\n");

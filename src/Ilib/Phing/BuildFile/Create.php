@@ -380,7 +380,7 @@ class Ilib_Phing_BuildFile_Create
         foreach($roles AS $role) {
             $files = $this->getFileRoles($role);
             foreach($files AS $file) {
-                $return .= "                <install as=\"".$file."\" name=\"".$role."/".$file."\" />\n";
+                $return .= "                <install as=\"".substr($file, strlen($role)+1)."\" name=\"".$file."\" />\n";
             }
         }
         
