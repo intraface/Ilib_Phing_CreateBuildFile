@@ -4,7 +4,7 @@
     <taskdef classname="phing.tasks.ext.IlibPearDeployerTask" name="peardeploy" />
 
     <property name="package-name" value="${phing.project.name}" />
-    <property name="version" value="0.1.3" />
+    <property name="version" value="0.1.4" />
     <property name="stability" value="stable" />
     <property name="pear.channel" value="public.intraface.dk" />
 
@@ -58,7 +58,7 @@
                 <pear minimum_version="1.6.0" recommended_version="1.6.1" />
                 <package name="PEAR_PackageUpdate" channel="pear.php.net" recommended_version="1.0.4" minimum_version="1.0.0" />
             </dependencies>
-            <notes>* Added support for excludes</notes>
+            <notes>* Enhanced support for excludes</notes>
         </d51pearpkg2>
     </target>
 
