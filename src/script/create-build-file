@@ -174,8 +174,9 @@ $createbuildfile->clearExcludes();
 $i = 0;
 while(true) {
     fwrite(STDOUT,"\n".'EXCLUDE '.($i+1)."\n");
+    fwrite(STDOUT,"(e.g. www/config.local.php)\n");
     
-    fwrite(STDOUT,"PATH (e.g. www/config.local.php)\n");
+    fwrite(STDOUT,"PATH\n");
     if (!empty($excludes[$i])) {
         fwrite(STDOUT,'Found: '. $excludes[$i]."\n");
         fwrite(STDOUT,"Enter path or leave empty to use existing or enter '/delete' to remove: ");
@@ -235,12 +236,19 @@ while(true) {
             $dependency_channel = $dependencies[$i]['channel'];
         }
         
-        fwrite(STDOUT,"Check for latest release? (y or enter):");
-        $answer = trim(fgets(STDIN));
-        if($answer == 'y' || $answer == 'yes') {
-           require_once 'PEAR/PackageUpdate.php';
-            $ppu = PEAR_PackageUpdate::factory('Cli', $dependency_name, $dependency_channel);
-            if($ppu != false) {
+        require_once 'PEAR/PackageUpdate.php';
+        $ppu = PEAR_PackageUpdate::factory('Cli', $dependency_name, $dependency_channel);
+        if($ppu != false) {
+            $installed = $ppu->getInstalledRelease();
+            if($installed == false) {
+                fwrite(STDOUT,"This package is not installed on you locale machine!\n".);
+            } else {
+                fwrite(STDOUT,"Your installed version is: ".$installed['state']." ".$installed['version']."\n");
+            }
+            
+            fwrite(STDOUT,"Check for latest release? (y or enter): ");
+            $answer = trim(fgets(STDIN));
+            if($answer == 'y' || $answer == 'yes') {
                 fwrite(STDOUT,"Fetching latest release. Please wait...\n");
                 $release = $ppu->getLatestRelease();
                 if($release != false) {
