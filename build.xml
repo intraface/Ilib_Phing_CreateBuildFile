@@ -4,7 +4,7 @@
     <taskdef classname="phing.tasks.ext.IlibPearDeployerTask" name="peardeploy" />
 
     <property name="package-name" value="${phing.project.name}" />
-    <property name="version" value="1.0.0" />
+    <property name="version" value="1.0.1" />
     <property name="stability" value="stable" />
     <property name="pear.channel" value="public.intraface.dk" />
 
@@ -56,9 +56,8 @@
             <dependencies>
                 <php minimum_version="5.2.0" />
                 <pear minimum_version="1.6.0" recommended_version="1.6.1" />
-                <package name="PEAR_PackageUpdate" channel="pear.php.net" recommended_version="1.0.4" minimum_version="1.0.0" />
             </dependencies>
-            <notes>* Enhanced package check.</notes>
+            <notes>* Locale package is now found in config registry</notes>
         </d51pearpkg2>
     </target>
 
