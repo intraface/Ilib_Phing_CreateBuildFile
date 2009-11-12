@@ -236,23 +236,40 @@ while(true) {
             $dependency_channel = $dependencies[$i]['channel'];
         }
         
-        require_once 'PEAR/PackageUpdate.php';
-        $ppu = PEAR_PackageUpdate::factory('Cli', $dependency_name, $dependency_channel);
-        if($ppu != false) {
-            $installed = $ppu->getInstalledRelease();
-            if($installed == false) {
-                fwrite(STDOUT,"This package is not installed on you locale machine!\n");
+        require_once 'PEAR/Config.php';
+        $config = PEAR_Config::singleton();
+        $registry = $config->getRegistry();
+        if (PEAR::isError($registry)) {
+            fwrite(STDOUT,"Unable to get package registry!\n");
+        } else {
+            $installed = $registry->packageInfo($dependency_name, null, $dependency_channel);
+            if(is_array($installed)) {
+                fwrite(STDOUT,"Your installed version is: ".$installed['stability']['release']." ".$installed['version']['release']."\n");
             } else {
-                fwrite(STDOUT,"Your installed version is: ".$installed['state']." ".$installed['version']."\n");
+                fwrite(STDOUT,"This package is not installed on you locale machine!\n");
             }
             
             fwrite(STDOUT,"Check for latest release? (y or enter): ");
             $answer = trim(fgets(STDIN));
             if($answer == 'y' || $answer == 'yes') {
-                fwrite(STDOUT,"Fetching latest release. Please wait...\n");
-                $release = $ppu->getLatestRelease();
-                if($release != false) {
-                    fwrite(STDOUT,"LATEST RELEASE: ".$release['state']." ".$release['version']."\n");
+                $channel =& $registry->getChannel($dependency_channel);
+                if (PEAR::isError($channel)) {
+                    fwrite(STDOUT,"Unable to fetch channel. It might not be added on your locale machine!\n");
+                } elseif ($channel->supportsREST($dependency_channel) && $base = $channel->getBaseURL('REST1.0', $dependency_channel)) {
+                    $rest =& $config->getREST('1.0', array());
+                    if (is_object($rest)) {
+                        $release = $rest->packageInfo($base, $dependency_name);
+                        if(is_array($release) && is_array($release['releases']) && count($release['releases']) > 0) {
+                            $values = current($release['releases']);
+                            fwrite(STDOUT,"LATEST RELEASE: ".$values['state']." ".key($release['releases'])."\n");
+                        } else {
+                           fwrite(STDOUT,"Unable to get package information!\n"); 
+                        }
+                    } else {
+                        fwrite(STDOUT,"Unable to contact channel!\n");
+                    }
+                } else {
+                    fwrite(STDOUT,"Unsupported channel!\n");
                 }
             }
         }
