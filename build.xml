@@ -4,7 +4,7 @@
     <taskdef classname="phing.tasks.ext.IlibPearDeployerTask" name="peardeploy" />
 
     <property name="package-name" value="${phing.project.name}" />
-    <property name="version" value="1.0.1" />
+    <property name="version" value="1.0.3" />
     <property name="stability" value="stable" />
     <property name="pear.channel" value="public.intraface.dk" />
 
@@ -23,8 +23,8 @@
     </target>
 
     <target name="export">
-        <echo msg="Exporting SVN files" />
-        <exec command="svn export ${source.dir}/src ${build.dir}/temp" />
+        <echo msg="Cloning git repository" />
+        <exec command="git clone git://github.com/intraface/Ilib_Phing_CreateBuildFile.git ${build.dir}/temp" />
         <mkdir dir="${build.dir}/package/${package-name}-${version}" />
         <copy todir="${build.dir}/package/${package-name}-${version}">
             <filterchain>
@@ -32,7 +32,7 @@
                     <token key="VERSION" value="${version}" />
                 </replacetokens>
             </filterchain>
-            <fileset dir="${build.dir}/temp">
+            <fileset dir="${build.dir}/temp/src">
                 <include name="**" />
             </fileset>
         </copy>
@@ -57,7 +57,7 @@
                 <php minimum_version="5.2.0" />
                 <pear minimum_version="1.6.0" recommended_version="1.6.1" />
             </dependencies>
-            <notes>* Locale package is now found in config registry</notes>
+            <notes>* Now using github</notes>
         </d51pearpkg2>
     </target>
 
